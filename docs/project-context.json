@@ -1,0 +1,138 @@
+{
+  "app_config": {
+    "name": "StudyFlow",
+    "purpose": "Help students manage their assignments, track upcoming exams and school projects",
+    "package": "com.studyflow",
+    "splash_screen": {
+      "enabled": true,
+      "branding": "StudyFlow"
+    },
+    "connectivity_mode": "both"
+  },
+  "features": [
+    {
+      "name": "Assignment Management",
+      "description": "Students can view their assignments and mark them as complete to track progress",
+      "priority": "high",
+      "use_cases": [
+        "GetAssignmentListUsecase",
+        "MarkAssignmentCompleteUsecase",
+        "GetAssignmentDetailsUsecase"
+      ],
+      "repositories": [],
+      "screens": [
+        "AssignmentListScreen",
+        "AssignmentDetailScreen"
+      ],
+      "api_endpoints": []
+    },
+    {
+      "name": "Exam Tracker with Reminders",
+      "description": "Students can view upcoming exams and receive timely reminders to prepare effectively",
+      "priority": "high",
+      "use_cases": [
+        "GetUpcomingExamsUsecase",
+        "SetExamReminderUsecase",
+        "GetExamDetailsUsecase"
+      ],
+      "repositories": [],
+      "screens": [
+        "ExamListScreen",
+        "ExamDetailScreen",
+        "ReminderSettingsScreen"
+      ],
+      "api_endpoints": []
+    },
+    {
+      "name": "School Project Details",
+      "description": "Students can view comprehensive details about their school projects including requirements, deadlines, and resources",
+      "priority": "medium",
+      "use_cases": [
+        "GetProjectListUsecase",
+        "GetProjectDetailsUsecase"
+      ],
+      "repositories": [],
+      "screens": [
+        "ProjectListScreen",
+        "ProjectDetailScreen"
+      ],
+      "api_endpoints": []
+    }
+  ],
+  "data_models": [
+    {
+      "name": "Assignment",
+      "layer": "domain",
+      "fields": [
+        "id: String",
+        "title: String",
+        "description: String",
+        "dueDate: Instant",
+        "subject: String",
+        "completed: Boolean",
+        "priority: String"
+      ],
+      "relationships": []
+    },
+    {
+      "name": "Exam",
+      "layer": "domain",
+      "fields": [
+        "id: String",
+        "date: Instant",
+        "subject: String",
+        "location: String",
+        "description: String",
+        "reminderEnabled: Boolean"
+      ],
+      "relationships": []
+    },
+    {
+      "name": "SchoolProject",
+      "layer": "domain",
+      "fields": [
+        "id: String",
+        "title: String",
+        "description: String",
+        "deadline: Instant",
+        "requirements: String",
+        "resources: String",
+        "teamMembers: List<String>"
+      ],
+      "relationships": []
+    }
+  ],
+  "navigation_flows": {
+    "start_screen": "HomeScreen",
+    "flows": [
+      "SetupScreen -> HomeScreen (after URL saved)",
+      "HomeScreen -> AssignmentListScreen (tap View Assignments)",
+      "AssignmentListScreen -> AssignmentDetailScreen (tap assignment)",
+      "HomeScreen -> ExamListScreen (tap Upcoming Exams)",
+      "ExamListScreen -> ExamDetailScreen (tap exam)",
+      "HomeScreen -> ProjectListScreen (tap School Projects)",
+      "ProjectListScreen -> ProjectDetailScreen (tap project)"
+    ],
+    "bottom_nav_items": [
+      "Home",
+      "Assignments",
+      "Exams",
+      "Projects"
+    ]
+  },
+  "integrations": [
+    {
+      "name": "Push Notifications",
+      "type": "push_notifications",
+      "description": "Send exam and assignment reminders to students via push notifications"
+    }
+  ],
+  "backend_config": {
+    "type": "google_sheets",
+    "config": {
+      "user_configurable_url": true
+    }
+  },
+  "ui_design": {},
+  "deployment_config": {}
+}
